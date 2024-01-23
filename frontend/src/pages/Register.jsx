@@ -1,11 +1,12 @@
-import "../assets/css/Signin.css";
+import "../assets/css/Register.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 function Register() {
   const navigate = useNavigate();
   return (
-    <div className="lt">
+    <>
+    <div className="lt dark-mode">
       <div className="round">
         <form>
           <h3>Sign Up</h3>
@@ -50,16 +51,19 @@ function Register() {
             >
               Sign Up
             </button>
-            <br />
+            <br /><br />
           </div>
           <div className="login-link-cont">
+            <p>Already Have an Account? </p>
             <Link to={"/login"} className="l2">
               Sign In
             </Link>
           </div>
         </form>
+        <p className="copyright">&copy; Zencloud-Ascent 2024</p>
       </div>
     </div>
+    </>
   );
 }
 export default Register;
