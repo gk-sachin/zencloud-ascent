@@ -67,13 +67,12 @@
     width: 93%;
     padding: 12px;
     font-size: 1rem;
-    border-style: solid;
-    boder-width:medium;
-    border-radius: 7px;
+    border-radius: 5px;
     margin-bottom: 20px;
     background-color: rgba(255, 255, 255, 0.8);
     color: #555;
-    outline: none;
+    border: 1px solid #f8f3f3; /* Add a border */
+    box-sizing: border-box;
   }
   
   .form-control::placeholder {

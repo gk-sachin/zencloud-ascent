@@ -19,3 +19,9 @@
 - Created Landing page
 - Created Navigation Bar
 - Created SideNav
+
+# Day 3
+
+- Created Dashboard for user
+- Created Profile page in dashboard for user
+- Created routing and created pages for sidenav

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Hamburger from "../assets/images/hamburger.png";
 import "../assets/css/Dropdown.css";
 import Icons from "../assets/images/man.png";
 
-// import { ReactComponent as Brand } from '../assets/images/logo.jpg'
+
 import "../assets/css/Navbar.css";
 function Navbar() {
   const [showNavbar, setShowNavbar] = useState(false);
@@ -68,25 +68,18 @@ function Navbar() {
               <div className="font-medium truncate">sachin@zencloud.com</div>
             </div>
             <div className="dropdown-list" aria-labelledby="avatarButton">
-              <li>
-                <a href="#" className="dropdown-item">
-                  Dashboard
-                </a>
-              </li>
-              <li>
-                <a href="#" className="dropdown-item">
-                  Settings
-                </a>
-              </li>
               
             </div>
             <div className="py-1">
-              <a
-                href="#"
+            <Link to={"/dashboard"} className="dropdown-item text-gray-700 hover:bg-gray-100">
+                Dashboard
+              </Link>
+              <Link to={"/login"}
                 className="dropdown-item text-gray-700 hover:bg-gray-100"
               >
                 Sign out
-              </a>
+              </Link>
+              
             </div>
           </div>
         </div>
