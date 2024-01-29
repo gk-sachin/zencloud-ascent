@@ -41,7 +41,6 @@
     margin-bottom: 8px;
   }
   
-  /* Highlight name and email input boxes in black */
   .form-control[name="name"],
   .form-control[name="email"] {
     background-color: #000;
@@ -115,7 +114,7 @@
     justify-content: space-between;
   }
   
-  /* Dark Mode Styles */
+
   .lt.dark-mode {
     background: linear-gradient(to right, #2c3e50, #34495e);
     color: #fff;

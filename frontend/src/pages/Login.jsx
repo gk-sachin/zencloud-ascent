@@ -11,22 +11,26 @@ function Login() {
   const [passwordError, setPasswordError] = useState("");
 
   const handleSignIn = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
 
-   
     if (!email.trim()) {
       alert("Email is required");
       return;
     }
 
-   
     if (password.length < 6) {
       setPasswordError("Password must be at least 6 characters long");
       return;
     }
 
-    // If validation passes, you can proceed with sign-in logic
-    navigate("/");
+  
+    if (email === "admin@zencloud.in") {
+      
+      navigate('/dashboard', { state: { user: { name: 'Admin', email: email } } });
+    } else {
+     
+      navigate('/', { state: { user: { name: 'John Doe', email: email } } });
+    }
   };
 
   return (
