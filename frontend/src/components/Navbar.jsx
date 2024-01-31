@@ -1,22 +1,22 @@
 import { useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Hamburger from "../assets/images/hamburger.png";
 import "../assets/css/Dropdown.css";
-import Icons from "../assets/images/man.png";
+// import Icons from "../assets/images/man.png";
 import "../assets/css/Navbar.css";
 
 function Navbar() {
   const [showNavbar, setShowNavbar] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
+  // const [showDropdown, setShowDropdown] = useState(false);
   const location = useLocation();
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
   };
 
-  const handleDropdownToggle = () => {
-    setShowDropdown(!showDropdown);
-  };
+  // const handleDropdownToggle = () => {
+  //   setShowDropdown(!showDropdown);
+  // };
 
   const isAdminPanel = location.pathname.startsWith("/dashboard");
 
@@ -27,6 +27,18 @@ function Navbar() {
   const isHome = location.pathname.startsWith("/home");
 
   if (isHome) {
+    return null; 
+  }
+
+  const isLogin = location.pathname.startsWith("/login");
+
+  if (isLogin) {
+    return null; 
+  }
+
+  const isRegister = location.pathname.startsWith("/register");
+
+  if (isRegister) {
     return null; 
   }
 
@@ -44,7 +56,7 @@ function Navbar() {
         <div className={`nav-elements  ${showNavbar && "active"}`}>
           <ul>
             <li>
-              <NavLink to="/home">Home</NavLink>
+              <NavLink to="/">Home</NavLink>
             </li>
             <li>
               <NavLink to="/admission">Admission</NavLink>
@@ -60,7 +72,7 @@ function Navbar() {
             </li>
           </ul>
         </div>
-        <div className="relative">
+        {/* <div className="relative">
           <img
             id="avatarButton"
             type="button"
@@ -95,7 +107,7 @@ function Navbar() {
               
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </nav>
   );

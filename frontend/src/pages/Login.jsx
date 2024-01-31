@@ -2,6 +2,7 @@ import "../assets/css/Signin.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 function Login() {
   const navigate = useNavigate();
@@ -35,9 +36,10 @@ function Login() {
 
   return (
     <>
+    <Navbar/>
       <div className="bb">
         <div className="lt dark-mode">
-          <div className="round">
+          <div className="round1">
             <form onSubmit={handleSignIn}>
               <h3>Sign In</h3>
               <div className="mb-2">

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../assets/css/Admission.css"; 
+import Navbar from "../components/Navbar";
 
 function Admission() {
   const [formData, setFormData] = useState({
@@ -49,6 +50,8 @@ function Admission() {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="admission-container">
       <h2>Admission Form</h2>
       <form onSubmit={handleSubmit}>
@@ -188,6 +191,7 @@ function Admission() {
         </button>
       </form>
     </div>
+    </>
   );
 }
 

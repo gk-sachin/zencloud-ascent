@@ -1,55 +1,64 @@
 import { useEffect, useState } from "react";
-import "../assets/css/Dashboard.css";
-import CourseButton from "../pages/Coursebutton";
+import "../assets/css/UserDashboard.css";
+import EditForm from "../pages/EditFrom";
+import { useNavigate } from "react-router-dom";
 
-function Dashboard() {
-  const [selectedOption, setSelectedOption] = useState(1);
+function UserDashboard() {
+  const navigate = useNavigate();
   const [admissionDetails, setAdmissionDetails] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
+
   useEffect(() => {
-    const formdata = JSON.parse(localStorage.getItem("user"));
-    setAdmissionDetails(formdata);
+    const formData = JSON.parse(localStorage.getItem("user"));
+    setAdmissionDetails(formData);
   }, []);
 
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
+  const navigateCourses = () => {
+    navigate("/user-dashboard/courses");
   };
-
+  const navigateHome = () => {
+    navigate("/");
+  };
+  const navigateDashboard = () => {
+    navigate("/user-dashboard");
+  };
   const handleEdit = (index) => {
-    console.log("Editing item at index:", index);
+    setEditIndex(index);
+    setIsEditing(true);
   };
 
-  const handleCreate = () => {
-    // Logic for handling the create action
-    console.log("Create button clicked");
-  };
-
-  const handleDelete = (index) => {
-    // Logic for handling the delete action
-    console.log("Deleting item at index:", index);
+  const handleSave = (editedData) => {
+    const updatedAdmissionDetails = [...admissionDetails];
+    updatedAdmissionDetails[editIndex] = editedData;
+    setAdmissionDetails(updatedAdmissionDetails);
+    setIsEditing(false);
   };
 
   return (
-    <div className="dashboard-container">
-      <div className="sidebar">
-        <h2>Admin Dashboard</h2>
+    <div className="dashboard-contents">
+      <div className="sidebarsss">
+        <h2>Dashboard</h2>
         <ul>
-          <li onClick={() => handleOptionClick(1)}>Dashboard</li>
-          <li onClick={() => handleOptionClick(2)}>Courses</li>
+          <li onClick={navigateDashboard}>Dashboard</li>
+          <li onClick={navigateCourses}>Courses</li>
+          <li onClick={navigateHome}>Logout</li>
         </ul>
       </div>
-      <div className="content">
-        <div className="dashboard-header">
-          <h1 className="dh">Welcome to the Admin Dashboard!</h1>
-          
-        </div>
-        <div className="dashboard-content">
-          {selectedOption === 1 && (
-            <div className="card">
+      <div className="contents">
+        <div className="dashboard-containers">
+          {isEditing && (
+            <EditForm
+              data={admissionDetails[editIndex]}
+              onSave={handleSave}
+              onCancel={() => setIsEditing(false)}
+            />
+          )}
+
+          {!isEditing && (
+            <div className="cardss">
               <h2>Admission Details</h2>
-              <button className="create-button" onClick={handleCreate}>
-            Create
-          </button>
-              <table className="tt">
+              <table className="ttt">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -63,7 +72,6 @@ function Dashboard() {
                     <th>COUNTRY</th>
                     <th>ADDRESS</th>
                     <th>Edit</th>
-                    <th>Delete</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -82,17 +90,11 @@ function Dashboard() {
                       <td>
                         <button onClick={() => handleEdit(index)}>Edit</button>
                       </td>
-                      <td>
-                        <button onClick={() => handleDelete(index)}>Delete</button>
-                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-          )}
-          {selectedOption === 2 && (
-            <CourseButton/>
           )}
         </div>
       </div>
@@ -100,4 +102,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default UserDashboard;

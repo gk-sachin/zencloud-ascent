@@ -1,21 +1,22 @@
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import Hamburger from "../assets/images/hamburger.png";
-// import Icons from "../assets/images/man.png";
+import Icons from "../assets/images/man.png";
 import "../assets/css/HomeNavbar.css";
+import { Link } from "react-router-dom";
 
 function HomeNavbar() {
   const [showNavbar, setShowNavbar] = useState(false);
-//   const [showDropdown, setShowDropdown] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const location = useLocation();
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
   };
 
-//   const handleDropdownToggle = () => {
-//     setShowDropdown(!showDropdown);
-//   };
+  const handleDropdownToggle = () => {
+    setShowDropdown(!showDropdown);
+  };
 
   const isAdminPanel = location.pathname.startsWith("/dashboard");
 
@@ -65,7 +66,7 @@ function HomeNavbar() {
         <div className={`nav-elementss  ${showNavbar && "active"}`}>
           <ul>
             <li>
-              <NavLink to="/home">Home</NavLink>
+              <NavLink to="/">Home</NavLink>
             </li>
             <li>
               <NavLink to="/admission">Admission</NavLink>
@@ -77,11 +78,11 @@ function HomeNavbar() {
               <NavLink to="/about">About</NavLink>
             </li>
             <li>
-              <NavLink to="/login">Login</NavLink>
+              
             </li>
           </ul>
         </div>
-        {/* <div className="relative">
+        <div className="relative">
           <img
             id="avatarButton"
             type="button"
@@ -97,12 +98,14 @@ function HomeNavbar() {
             id="userDropdown"
             className={`dropdown-content ${showDropdown && "show"}`}
           >
-            <div className="dropdown-header">
-              <div>Sachin</div>
-              <div className="font-medium truncate">sachin@zencloud.com</div>
-            </div>
             <div className="dropdown-list" aria-labelledby="avatarButton"></div>
             <div className="py-1">
+            <Link
+                to={"/login"}
+                className="dropdown-item text-gray-700 hover:bg-gray-100"
+              >
+                Login
+              </Link>
               <Link
                 to={"/user-dashboard"}
                 className="dropdown-item text-gray-700 hover:bg-gray-100"
@@ -117,7 +120,7 @@ function HomeNavbar() {
               </Link>
             </div>
           </div> 
-        </div> */}
+        </div>
       </div>
     </nav>
   );

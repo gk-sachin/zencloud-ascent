@@ -2,6 +2,7 @@ import "../assets/css/Register.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 function Register() {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ function Register() {
 
   return (
     <>
+    <Navbar/>
       <div className="lt dark-mode">
         <div className="round">
           <form onSubmit={handleSignUp}>
@@ -89,7 +91,7 @@ function Register() {
                 <span className="error">{passwordError}</span>
               )}
             </div>
-            <div className="mb-2">
+            <div className="mb-22">
               <label htmlFor="confirmPassword">Confirm Password </label>
               <input
                 type={showPassword ? "text" : "password"}
@@ -99,14 +101,12 @@ function Register() {
                 required
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
-            </div>
-            <div className="mb-2">
-              <label>
+              <label id="shh">
                 <input
                   type="checkbox"
                   onChange={() => setShowPassword(!showPassword)}
                 />
-                Show Password
+                <p>Show Password</p>
               </label>
             </div>
             <div className="d-grid">
@@ -122,9 +122,13 @@ function Register() {
               </Link>
             </div>
           </form>
-          <p className="copyright">&copy; Zencloud-Ascent 2024</p>
-        </div>
-      </div>
+          </div>
+          </div>
+          <div className="foot">
+          <p className="copyrightt">&copy; Zencloud-Ascent 2024</p>
+          </div>
+        
+      
     </>
   );
 }
