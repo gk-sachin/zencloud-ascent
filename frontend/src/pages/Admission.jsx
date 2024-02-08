@@ -53,7 +53,7 @@ function Admission() {
     <>
     <Navbar/>
     <div className="admission-container">
-      <h2>Admission Form</h2>
+      <h2 className="he">Admission Form</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Name:</label>

@@ -2,7 +2,7 @@
 import Navbar from '../components/Navbar';
 import "../assets/css/About.css"
 
-const YourComponent = () => {
+const About = () => {
   return (
     <>
      <Navbar/>
@@ -14,42 +14,42 @@ const YourComponent = () => {
       </div>
 
       <h2 style={{ textAlign: 'center' }}>Our Team</h2>
-      <div className="row">
-        <div className="column">
-          <div className="card">
+      <div className="row1">
+        <div className="column1">
+          <div className="carda">
             <img src="/w3images/team1.jpg" alt="Jane" style={{ width: '100%' }} />
-            <div className="container">
+            <div className="container1">
               <h2>Rishikesh</h2>
-              <p className="title">CEO & Founder</p>
+              <p className="title1">CEO & Founder</p>
               <p>Some text that describes me lorem ipsum ipsum lorem.</p>
               <p>rishi@zencloud.com</p>
-              <p><button className="button">Contact</button></p>
+              <p><button className="button1">Contact</button></p>
             </div>
           </div>
         </div>
 
-        <div className="column">
-          <div className="card">
+        <div className="column1">
+          <div className="carda">
             <img src="/w3images/team2.jpg" alt="Mike" style={{ width: '100%' }} />
-            <div className="container">
+            <div className="container1">
               <h2>Sachin</h2>
-              <p className="title">Co-Founder</p>
+              <p className="title1">Co-Founder</p>
               <p>Some text that describes me lorem ipsum ipsum lorem.</p>
               <p>sachin@zencloud.com</p>
-              <p><button className="button">Contact</button></p>
+              <p><button className="button1">Contact</button></p>
             </div>
           </div>
         </div>
 
-        <div className="column">
-          <div className="card">
+        <div className="column1">
+          <div className="carda">
             <img src="/w3images/team3.jpg" alt="John" style={{ width: '100%' }} />
-            <div className="container">
+            <div className="container1">
               <h2>Sai Sathyan</h2>
-              <p className="title">CTO</p>
+              <p className="title1">CTO</p>
               <p>Some text that describes me lorem ipsum ipsum lorem.</p>
               <p>sai@zencloud.com</p>
-              <p><button className="button">Contact</button></p>
+              <p><button className="button1">Contact</button></p>
             </div>
           </div>
         </div>
@@ -59,4 +59,4 @@ const YourComponent = () => {
   );
 };
 
-export default YourComponent;
+export default About;

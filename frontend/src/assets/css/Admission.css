@@ -2,7 +2,7 @@
 .admission-container {
     max-width: 600px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
     background-color: rgba(44, 62, 76, 0.95);
     
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -12,6 +12,11 @@
   .admission-container h2 {
     text-align: center;
     color: #3498db;
+    margin-top: 5px;
+  }
+  .he{
+    font-size: 45px;
+    padding: 20px;
   }
   
   .admission-container form {

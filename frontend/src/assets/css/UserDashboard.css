@@ -1,7 +1,7 @@
 
-  .dashboard-containers {
+ .dashboard-containers {
     flex-direction: column;
-    padding:-100px;
+    padding:5px;
   }
 
   .sidebarss {
@@ -13,7 +13,7 @@
 .sidebarsss {
   width: 200px;
   height: 100vh;
-  background-color: #40413e;
+  background-color: #3b3b39;
   padding-top: 20px;
   color: white;
 }
@@ -37,7 +37,7 @@
   background-color: #555;
 }
 
-  /* Center the create button for small screens */
+  
   .create-button {
     margin-left: auto;
     margin-right: auto;
@@ -132,5 +132,5 @@
 
 .create-button {
   margin-left: auto;
-  margin-right: 10px; /* Adjust the margin as needed */
+  margin-right: 10px; 
 }

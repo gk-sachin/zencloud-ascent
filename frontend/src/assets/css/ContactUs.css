@@ -1,4 +1,4 @@
-/* Common Styles for both Light and Dark Modes */
+
 :root {
     --background-color: #fff;
     --text-color: #333;
@@ -14,10 +14,11 @@
   }
   
 .hc{
-    margin-left: 680px;
+  padding: 50px;
+    margin-left: 635px;
 }
 
-  /* Light Mode Styles */
+ 
   body.light-mode {
     --background-color: #fff;
     --text-color: #333;
@@ -26,7 +27,7 @@
     --button-text: #fff;
   }
   
-  /* Dark Mode Styles */
+  
   body.dark-mode {
     --background-color: #1c1c1c;
     --text-color: #fff;
@@ -35,7 +36,7 @@
     --button-text: #fff;
   }
   
-  /* Common Styles for Input and Button */
+ 
   input,
   textarea,
   button {
@@ -67,7 +68,7 @@
     background-color: #0056b3;
   }
   
-  /* Responsive Styles */
+
   @media (max-width: 768px) {
     input,
     textarea {

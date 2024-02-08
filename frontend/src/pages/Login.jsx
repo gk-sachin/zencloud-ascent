@@ -27,7 +27,7 @@ function Login() {
   
     if (email === "admin@zencloud.in") {
       
-      navigate('/dashboard', { state: { user: { name: 'Admin', email: email } } });
+      navigate('/dashboard/admin', { state: { user: { name: 'Admin', email: email } } });
     } else {
      
       navigate('/', { state: { user: { name: 'John Doe', email: email } } });

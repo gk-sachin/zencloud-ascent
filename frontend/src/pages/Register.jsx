@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import axios from "axios";  
 
 function Register() {
   const navigate = useNavigate();
@@ -14,44 +15,55 @@ function Register() {
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
-    // Basic name validation
+ 
     if (!name.trim()) {
       alert("Name is required");
       return;
     }
 
-    // Basic email validation
+  
     if (!email.trim()) {
       alert("Email is required");
       return;
     }
 
-    // Basic password strength validation
+    
     if (password.length < 6) {
       setPasswordError("Password must be at least 6 characters long");
       return;
     }
 
-    // Basic password matching validation
+
     if (password !== confirmPassword) {
       alert("Passwords do not match");
       return;
     }
 
-    // If validation passes, you can proceed with sign-up logic
-    navigate("/");
+    try {
+     
+      const response = await axios.post("http://localhost:8081/register", {
+        name: name,
+        password: password,
+        confirmPassword: confirmPassword,
+      });
+
+      console.log(response.data);  
+      navigate("/");
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
   };
 
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <div className="lt dark-mode">
         <div className="round">
           <form onSubmit={handleSignUp}>
-            <h3>Sign Up</h3>
+          <h3>Sign Up</h3>
             <div className="mb-2">
               <label htmlFor="name">Name</label>
               <input
@@ -122,13 +134,11 @@ function Register() {
               </Link>
             </div>
           </form>
-          </div>
-          </div>
-          <div className="foot">
-          <p className="copyrightt">&copy; Zencloud-Ascent 2024</p>
-          </div>
-        
-      
+        </div>
+      </div>
+      <div className="foot">
+        <p className="copyrightt">&copy; Zencloud-Ascent 2024</p>
+      </div>
     </>
   );
 }
