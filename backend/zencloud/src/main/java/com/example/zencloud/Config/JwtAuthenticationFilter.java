@@ -24,10 +24,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
 
-    // 7. userDetailService is an interface available withtin spring framework
-    // security core
-    // 8. Need to implement our own method to check whether user is available or not
-    // in database
+    
     private final UserDetailsService userDetailsService;
 
     @Override
@@ -50,11 +47,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         jwtToken = authHeader.substring(7);
         userEmail = jwtService.extractUserEmail(jwtToken); // Will go to jwtService
 
-        
+        // 2.. Checking if userEmail is not null and I want to check that user is not
+        // authenticated yet
+        // 3. If user is authenticated then I don't want to check all the condition and
+        // update the SecurityContextHolder
+        // 4. To check whethe the user is authenticated or not we have a object called
+        // SecurityContextHolder
+        // 5. If the authentication is null then the user is not authenticated/
+        // connected yet
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-           
+            // 6. Check whether we have user within the database after the authentication
+            // condition
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-            
+            // 9. Check whether the token is valid or not
+            // 10. If token is vaild we need to update SecurityContextHolder
             if (jwtService.isTokenValid(jwtToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
                         null, userDetails.getAuthorities());

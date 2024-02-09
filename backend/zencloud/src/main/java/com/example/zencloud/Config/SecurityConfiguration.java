@@ -38,12 +38,8 @@ public class SecurityConfiguration {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authenticationProvider(authenticationProvider) // 1. Here we need to tell spring which authentication
-                                                                // provider we are going to use
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // 2. Adding a
-                                                                                             // jwtAuthFilter
-                                                                                             // before
-                                                                                             // UsernamePasswordAuthenticationFilter
+                .authenticationProvider(authenticationProvider) 
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); 
         return httpSecurity.build();
     }
 }
