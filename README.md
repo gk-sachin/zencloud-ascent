@@ -5,40 +5,68 @@
 *Project Name :* ZenCloud Ascent
 *Project Description :* ZenCloud Ascent: Transformative Yoga Academy Admissions with Java Full Stack on AWS
 
-# Day 1
 
-- Created React app using Vite
-- Created two folders for frontend/ and backend/
-- Created the folder structure for the frontend
-- Create a component Hello_World.jsx
-- Import the component in App.jsx and use it
+# Steps for frontend
 
-# Day 2
+## Step 1
 
-- Created routes for Home, About, Contact, Login and Signup and created the respective pages
-- Created Landing page
-- Created Navigation Bar
-- Created SideNav
+Create a vite app
 
-# Day 3
 
-- Created Dashboard for user
-- Created Profile page in dashboard for user
-- Created routing and created pages for sidenav
+npm create vite@latest frontend --template react
 
-# Day 4
 
-- Created Components for user management
-- Created components for CRUD for user
+## Step 2
 
-# Day 5
+Install packages
 
-- Design components for Admin Profile
-- Design Components for Password
-- Design components for site settings
 
-# Day 6
+cd frontend
+npm run dev
 
-- Completed the Dashboard for user and admin
-- Completed the landing page, about, contact
-- Completed the frontend
+
+## Step 3
+
+Run the app
+
+
+npm run dev
+
+
+# Steps to run the backend
+
+## Step 1
+
+### Spring project setup
+
+Install required dependencies
+
+- Spring JPA
+- Spring dev tools
+- PostgresSQL
+- Spring web
+
+## Step 2
+
+Create the required
+
+- Model
+- Controller
+- Service
+- Repository
+
+## Step 3
+
+Run the app
+
+- Press Ctrl + Shift + P
+- Click Spring run
+
+## Step 4
+
+The app will run on
+http://localhost:8080
+
+## Step 5
+
+Swagger UI will run on http://localhost:8080/swagger-ui/index.html
