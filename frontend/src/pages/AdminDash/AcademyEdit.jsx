@@ -19,6 +19,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import { UserContext } from "../../Components/Context/UserContext";
+import { useLocation } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -69,17 +70,11 @@ const Drawer = styled(MuiDrawer, {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function CreateAcademy() {
+export default function EditAcademy() {
   const [open, setOpen] = React.useState(true);
-  const [academy, setAcademy] = React.useState({
-    name: "",
-    city: "",
-    country: "",
-    state: "",
-    description: "",
-    ratings: 0,
-    imgURL: "",
-  });
+  const location = useLocation();
+
+  const [academy, setAcademy] = React.useState(location.state.academy);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -90,8 +85,9 @@ export default function CreateAcademy() {
     console.log({
       Authorization: `Bearer ${user.token}`,
     });
-    const res = await axios.post(
-      "http://localhost:8080/api/academies/",
+    console.log(academy, academy.id);
+    const res = await axios.put(
+      `http://localhost:8080/api/academies/${academy.id}`,
       academy,
       {
         headers: {
@@ -100,7 +96,7 @@ export default function CreateAcademy() {
       }
     );
     await console.log(res);
-    await alert("Academy added");
+    await alert("Academy Updated");
   }
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -109,7 +105,7 @@ export default function CreateAcademy() {
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
-              pr: "24px", 
+              pr: "24px", // keep right padding when drawer closed
             }}
           >
             <IconButton
@@ -186,7 +182,7 @@ export default function CreateAcademy() {
                 }}
               >
                 <Typography component="h1" variant="h5">
-                  Create Academy
+                  Edit Academy
                 </Typography>
                 <br />
                 <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
@@ -305,7 +301,7 @@ export default function CreateAcademy() {
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
                     >
-                      Create Academy
+                      Edit Academy
                     </Button>
                   </div>
                 </Box>

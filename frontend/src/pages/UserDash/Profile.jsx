@@ -13,16 +13,10 @@ import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems } from "../../Components/AdminDash/ListItems";
+import { mainListItems } from "../../Components/UserDash//ListItems";
 import Container from "@mui/material/Container";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import axios from "axios";
+import Avatar from "@mui/material/Avatar";
 import { UserContext } from "../../Components/Context/UserContext";
 
 const drawerWidth = 240;
@@ -74,34 +68,12 @@ const Drawer = styled(MuiDrawer, {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function UsersAdmin() {
-  const [rows, setRows] = React.useState([]);
-  const { user } = React.useContext(UserContext);
-  React.useEffect(() => {
-    async function fetch() {
-      const res = await axios.get("http://localhost:8080/api/users/", {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-      const users = await res.data;
-      const rows =
-        users &&
-        users.map((user) =>
-          createData(user.name, user.email, user.phone, user.password)
-        );
-      setRows(rows);
-    }
-    fetch();
-  });
+export default function Profile() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  function createData(name, email, phone, pass) {
-    return { name, email, phone, pass };
-  }
-
+  const { user } = React.useContext(UserContext);
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: "flex" }}>
@@ -131,7 +103,7 @@ export default function UsersAdmin() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Admin Dashboard
+              User Dashboard
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -174,41 +146,52 @@ export default function UsersAdmin() {
           <br />
           <br />
           <br />
-          <br />
-          <h1 style={{ padding: "0 20px" }}>Users</h1>
 
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <div>
-              <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Name</TableCell>
-                      <TableCell align="right">Email</TableCell>
-                      <TableCell align="right">Mobile Number</TableCell>
-                      
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((row) => (
-                      <TableRow
-                        key={row.name}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell component="th" scope="row">
-                          {row.name}
-                        </TableCell>
-                        <TableCell align="right">{row.email}</TableCell>
-                        <TableCell align="right">{row.phone}</TableCell>
-                        
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </div>
+          <Container component="main" maxWidth="xs">
+            <Paper
+              elevation={3}
+              style={{
+                padding: 20,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Avatar style={{ width: 100, height: 100, marginBottom: 10 }}>
+                P
+              </Avatar>
+              <Typography
+                component="h1"
+                variant="h5"
+                style={{ marginBottom: 10 }}
+              >
+                User Profile
+              </Typography>
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                align="center"
+                style={{ marginBottom: 20 }}
+              >
+                Edit your profile information
+              </Typography>
+              {/* Add your profile form fields here */}
+              <Typography component={"h1"} variant="h6">
+                <strong>Name: </strong>
+                {user.name}
+              </Typography>
+              <br />
+              <Typography component={"h1"} variant="h6">
+                <strong>Email: </strong>
+                {user.email}
+              </Typography>
+              <br />
+              <Typography component={"h1"} variant="h6">
+                <strong>Phone: </strong>
+                {user.phone}
+              </Typography>
+              <br />
+            </Paper>
           </Container>
         </Box>
       </Box>

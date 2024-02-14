@@ -1,6 +1,8 @@
 import { useState } from "react";
+import axios from "axios";
 import "../assets/css/Admission.css"; 
 import Navbar from "../components/Navbar";
+
 
 function Admission() {
   const [formData, setFormData] = useState({
@@ -23,19 +25,20 @@ function Admission() {
       [name]: value,
     });
   };
+  
   const courses = ["Course A", "Course B", "Course C"]; 
   const yogaCenters = ["Yoga Center 1", "Yoga Center 2", "Yoga Center 3"]; 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    console.log(formData);
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
-    let d = JSON.parse(localStorage.getItem("user"))
-    if(!d) {
-      d = []
-    }
-    d.push(formData)
-    localStorage.setItem("user", JSON.stringify(d))
-    setFormData({
+   
+    try {
+      const response = await axios.post("http://localhost:8080/api/submitForm", formData);
+
+      console.log("Form Data Submitted:", response.data);
+
+      setFormData({
         name: "",
         email: "",
         dob: "",
@@ -47,25 +50,29 @@ function Admission() {
         country: "",
         address: "",
       });
+    } catch (error) {
+      console.error("There was a problem with your axios operation:", error);
+    }
   };
 
   return (
     <>
-    <Navbar/>
-    <div className="admission-container">
-      <h2 className="he">Admission Form</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
+      <Navbar/>
+      <div className="b">
+        <div className="admission-container">
+          <h2 className="he">Admission Form</h2>
+          <form className="ree" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="name">Name:</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
         <div className="form-group">
           <label htmlFor="email">Email:</label>
@@ -187,10 +194,11 @@ function Admission() {
         </div>
 
         <button type="submit">
-          Submit
-        </button>
-      </form>
-    </div>
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
     </>
   );
 }

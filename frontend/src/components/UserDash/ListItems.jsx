@@ -4,7 +4,6 @@ import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import SelfImprovementIcon from "@mui/icons-material/SelfImprovement";
-import GroupIcon from "@mui/icons-material/Group";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom";
@@ -12,7 +11,7 @@ import { Link } from "react-router-dom";
 
 export const mainListItems = (
   <div>
-    <Link className="mobile-links" to={"/dashboard/admin"}>
+    <Link className="mobile-links" to={"/dashboard/user"}>
       <ListItemButton>
         <ListItemIcon>
           <DashboardIcon />
@@ -20,15 +19,7 @@ export const mainListItems = (
         <ListItemText primary="Dashboard" />
       </ListItemButton>
     </Link>
-    <Link className="mobile-links" to={"/dashboard/admin/users"}>
-      <ListItemButton>
-        <ListItemIcon>
-          <GroupIcon />
-        </ListItemIcon>
-        <ListItemText primary="Users" />
-      </ListItemButton>
-    </Link>
-    <Link className="mobile-links" to={"/dashboard/admin/academies"}>
+    <Link className="mobile-links" to={"/dashboard/user/academies"}>
       <ListItemButton>
         <ListItemIcon>
           <ApartmentIcon />
@@ -36,7 +27,7 @@ export const mainListItems = (
         <ListItemText primary="Academies" />
       </ListItemButton>
     </Link>
-    <Link className="mobile-links" to={"/dashboard/admin/courses"}>
+    <Link className="mobile-links" to={"/dashboard/user/courses"}>
       <ListItemButton>
         <ListItemIcon>
           <SelfImprovementIcon />
@@ -44,7 +35,7 @@ export const mainListItems = (
         <ListItemText primary="Courses" />
       </ListItemButton>
     </Link>
-    <Link className="mobile-links" to={"/dashboard/admin/profile"}>
+    <Link className="mobile-links" to={"/dashboard/user/profile"}>
       <ListItemButton>
         <ListItemIcon>
           <AccountCircleIcon />
@@ -60,6 +51,13 @@ export const mainListItems = (
         <ListItemText primary="Logout" />
       </ListItemButton>
     </Link>
-    
+    {/* <Link className="mobile-links" to={"/"}>
+      <ListItemButton>
+        <ListItemIcon>
+          <HomeIcon />
+        </ListItemIcon>
+        <ListItemText primary="Home" />
+      </ListItemButton>
+    </Link> */}
   </div>
 );

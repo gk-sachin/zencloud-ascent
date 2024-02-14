@@ -68,9 +68,7 @@ public class Courses {
         return this.id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+   
 
     public String getImgURL() {
         return this.imgURL;

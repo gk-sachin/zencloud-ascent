@@ -13,12 +13,15 @@ import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems } from "../../Components/AdminDash/ListItems";
-import Container from "@mui/material/Container";
-import TextField from "@mui/material/TextField";
-import { Link } from "react-router-dom";
+import { mainListItems } from "../../Components/UserDash//ListItems";
 import Button from "@mui/material/Button";
-import { useLocation } from "react-router-dom";
+import Container from "@mui/material/Container";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import Rating from "@mui/material/Rating";
+import { UserContext } from "../../Components/Context/UserContext";
+import axios from "axios";
 
 const drawerWidth = 240;
 
@@ -69,16 +72,40 @@ const Drawer = styled(MuiDrawer, {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function UsersAdminEdit() {
-  const location = useLocation();
-
+export default function Course() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  function handleSubmit(e) {
-    e.preventDefault();
+  const [courses, setCourses] = React.useState([]);
+  const { user } = React.useContext(UserContext);
+  React.useEffect(() => {
+    async function fetch() {
+      const res = await axios.get("http://localhost:8080/api/courses/", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      console.log(res.data);
+      await setCourses(res.data);
+    }
+    fetch();
+  }, []);
+
+  async function apply(courseId) {
+    const res = await axios.post(
+      `http://localhost:8080/api/courses/register/${courseId}`,
+      { id: user.id },
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+    console.log(res.data);
+    alert("Successfully applied for course");
   }
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: "flex" }}>
@@ -108,7 +135,7 @@ export default function UsersAdminEdit() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Admin Dashboard
+              User Dashboard
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -150,84 +177,75 @@ export default function UsersAdminEdit() {
         >
           <br />
           <br />
-
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Container component="main" maxWidth="xs">
-              <CssBaseline />
-              <Box
-                sx={{
-                  marginTop: 8,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <Typography component="h1" variant="h5">
-                  Edit User
-                </Typography>
-                <Box
-                  component="form"
-                  onSubmit={handleSubmit}
-                  noValidate
-                  sx={{ mt: 1 }}
-                >
-                  <label>Name*</label>
-                  <TextField
-                    margin="normal"
-                    value={location.state.user.name}
-                    required
-                    fullWidth
-                    id="name"
-                    name="name"
-                    autoComplete="name"
-                    autoFocus
+          <br />
+          <br />
+          <h1 style={{ padding: "0 20px" }}>Browse Courses</h1>
+          <Container
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            maxWidth="lg"
+            sx={{ mt: 4, mb: 4 }}
+          >
+            {courses &&
+              courses.map((course) => (
+                <Card key={course.id} style={{ width: 300, margin: 10 }}>
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    image={course.imgURL}
+                    alt={course.name}
                   />
-                  <label>Email*</label>
-                  <TextField
-                    margin="normal"
-                    required
-                    value={location.state.user.email}
-                    fullWidth
-                    id="email"
-                    name="email"
-                    autoComplete="email"
-                    autoFocus
-                  />
-                  <label>Mobile Number*</label>
-                  <TextField
-                    margin="normal"
-                    required
-                    value={location.state.user.phone}
-                    fullWidth
-                    id="phone"
-                    name="phone-number"
-                    autoComplete="phone"
-                    autoFocus
-                  />
-
-                  <div>
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
+                  <CardContent>
+                    <Typography variant="h6" component="div" gutterBottom>
+                      {course.name}
+                    </Typography>
+                    <Typography
+                      variant="subtitle2"
+                      color="textSecondary"
+                      paragraph
                     >
-                      Edit
+                      Instructor : {course.instructor} <br /> {course.time} |{" "}
+                      {course.date}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" paragraph>
+                      Academy: {course.academy.name}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" paragraph>
+                      Course Fee: ₹ {course.courseFee}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" paragraph>
+                      {course.description}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" paragraph>
+                      {course.address}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" paragraph>
+                      {course.city}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" paragraph>
+                      {course.state}, {course.country}
+                    </Typography>
+                    <Rating name="read-only" value={course.rating} readOnly />
+                    <br />
+                    <Button
+                      onClick={() => {
+                        apply(course.id);
+                      }}
+                      variant="contained"
+                      color="primary"
+                      size="small"
+                      style={{ marginTop: 10 }}
+                    >
+                      Apply for course
                     </Button>
-                    <Link to={"/dashboard/admin/users"}>
-                      <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                      >
-                        Back
-                      </Button>
-                    </Link>
-                  </div>
-                </Box>
-              </Box>
-            </Container>{" "}
+                    <br />
+                  </CardContent>
+                </Card>
+              ))}
           </Container>
         </Box>
       </Box>

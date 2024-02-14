@@ -11,10 +11,19 @@
 
 .round {
   position: relative;
-  height: 85vh;
+  height: 95vh;
 }
 
-
+.round2
+{
+  margin-top: -35px;
+}
+.login-link-cont {
+  margin-top: -12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .copyrightt {
 
   position: absolute;
@@ -140,11 +149,7 @@ label {
   font-weight: bold;
 }
 
-.login-link-cont {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+
 
 
 .lt.dark-mode {

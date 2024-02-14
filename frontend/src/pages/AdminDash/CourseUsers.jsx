@@ -24,6 +24,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import axios from "axios";
 import { UserContext } from "../../Components/Context/UserContext";
+import { useLocation } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -74,16 +75,20 @@ const Drawer = styled(MuiDrawer, {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function UsersAdmin() {
+export default function CourseUsers() {
   const [rows, setRows] = React.useState([]);
   const { user } = React.useContext(UserContext);
+  const location = useLocation();
   React.useEffect(() => {
     async function fetch() {
-      const res = await axios.get("http://localhost:8080/api/users/", {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const res = await axios.get(
+        `http://localhost:8080/api/courses/users/${location.state.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       const users = await res.data;
       const rows =
         users &&

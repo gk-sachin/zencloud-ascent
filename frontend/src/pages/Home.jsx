@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import "../assets/css/Home.css";
 import HomeNavbar from "../components/HomeNavbar";
 import { FiArrowRight } from "react-icons/fi";
@@ -6,42 +7,27 @@ import BannerImage from "../assets/images/yg.gif";
 import { Link } from "react-router-dom";
 
 
-
 function Home() {
+  const bannerRef = useRef(null);
+
+  const scrollToBanner = () => {
+    bannerRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <>
       <HomeNavbar />
       <div className="home-container">
         <div className="showcase">
-          <h1 className="he">Welcome to Zencloud Yoga</h1>
+          <h1 className="he">Welcome to Zencloud Yoga</h1><br/>
           <p className="subtext">
             Embark on a journey to wellness and tranquility.
-          </p>
-          <button className="main-btn">Get Started</button>
+          </p><br/>
+          <button className="main-btn" onClick={scrollToBanner}>Get Started</button>
         </div>
 
-        {/* <div className="features">
-          <div className="feature">
-            <h2>Expert Instructors</h2>
-            <p>
-              Join sessions led by certified and experienced yoga instructors.
-            </p>
-          </div>
-
-          <div className="feature">
-            <h2>Personalized Programs</h2>
-            <p>Customize your yoga journey with personalized programs.</p>
-          </div>
-
-          <div className="feature">
-            <h2 className="h">Peaceful Environment</h2>
-            <p className="p">
-              Practice yoga in a serene and peaceful environment.
-            </p>
-          </div>
-        </div> */}
-        <div className="home-banner-container">
-        <div className="overlay"></div>
+        <div ref={bannerRef} className="home-banner-container">
+          <div className="overlay"></div>
           <div className="home-bannerImage-container">
             <img className="ii" src={BannerBackground} alt="" />
           </div>

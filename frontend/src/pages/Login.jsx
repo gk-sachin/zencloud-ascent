@@ -1,8 +1,10 @@
-import "../assets/css/Signin.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 import Navbar from "../components/Navbar";
+import "../assets/css/Signin.css"
+import { UserContext } from "../Components/Context/UserContext";
 
 function Login() {
   const navigate = useNavigate();
@@ -10,37 +12,43 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const {user, setUser} = useContext(UserContext)
+  const handleSignIn = async (e) => {
+    
+    e.preventDefault();
 
-  const handleSignIn = (e) => {
-    e.preventDefault(); 
-
-    if (!email.trim()) {
-      alert("Email is required");
-      return;
-    }
-
-    if (password.length < 6) {
-      setPasswordError("Password must be at least 6 characters long");
-      return;
-    }
-
-  
-    if (email === "admin@zencloud.in") {
-      
-      navigate('/dashboard/admin', { state: { user: { name: 'Admin', email: email } } });
-    } else {
-     
-      navigate('/', { state: { user: { name: 'John Doe', email: email } } });
+    try {
+      const response = await axios.post("http://localhost:8080/api/v1/auth/authenticate", {
+        email: email,
+        password: password,
+      });
+      window.alert("Logged In Successfully!!")
+      await console.log(response.data)
+      console.log(response.data);
+      let role = "USER";
+      if(email == "admin@gmail.com") {
+        role = "ADMIN";
+      } 
+      await setUser({email, password, role, token :  response.data.token, id : response.data.id})
+      localStorage.setItem(
+          "user",
+          JSON.stringify({
+            email: email,
+            password:password
+  }));
+      navigate("/");
+    } catch (error) {
+      console.error("Error during Login:", error);
     }
   };
 
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <div className="bb">
         <div className="lt dark-mode">
           <div className="round1">
-            <form onSubmit={handleSignIn}>
+            <form className="round3" onSubmit={handleSignIn}>
               <h3>Sign In</h3>
               <div className="mb-2">
                 <label htmlFor="email">Email</label>
@@ -84,8 +92,8 @@ function Login() {
                 </Link>
               </div>
             </form>
-          </div>
-          <p className="copyright">&copy; Zencloud-Ascent 2024</p>
+          </div><br></br>
+          
         </div>
       </div>
     </>

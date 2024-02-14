@@ -45,11 +45,11 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="container">
-        <div className="logo">
-          <h4 to style={{ color: "black" }}>
+        
+          <h4 className="h" style={{ color: "black" }}>
             ZenCloud Ascent
           </h4>
-        </div>
+        
         <div className="menu-icon" onClick={handleShowNavbar}>
           <img className="ham" src={Hamburger} />
         </div>

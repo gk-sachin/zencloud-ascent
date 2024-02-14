@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "../assets/css/UserDashboard.css";
 import EditForm from "../pages/EditFrom";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+
 
 function UserDashboard() {
   const navigate = useNavigate();
@@ -10,39 +12,44 @@ function UserDashboard() {
   const [editIndex, setEditIndex] = useState(null);
 
   useEffect(() => {
-    const formData = JSON.parse(localStorage.getItem("user"));
-    setAdmissionDetails(formData);
+    fetchAdmissionDetails();
   }, []);
 
-  const navigateCourses = () => {
-    navigate("/user-dashboard/courses");
+  const fetchAdmissionDetails = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/forms");
+      setAdmissionDetails(response.data);
+    } catch (error) {
+      console.error("Error fetching admission details:", error);
+    }
   };
-  const navigateHome = () => {
-    navigate("/");
-  };
-  const navigateDashboard = () => {
-    navigate("/user-dashboard");
-  };
+
+  
+  
   const handleEdit = (index) => {
     setEditIndex(index);
     setIsEditing(true);
   };
 
-  const handleSave = (editedData) => {
-    const updatedAdmissionDetails = [...admissionDetails];
-    updatedAdmissionDetails[editIndex] = editedData;
-    setAdmissionDetails(updatedAdmissionDetails);
-    setIsEditing(false);
+  const handleSave = async (editedData) => {
+    try {
+      await axios.put(`http://localhost:8080/api/forms/${admissionDetails[editIndex].id}`, editedData);
+      fetchAdmissionDetails(); // Fetch updated details after saving
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error saving admission details:", error);
+    }
   };
+  
 
   return (
     <div className="dashboard-contents">
       <div className="sidebarsss">
         <h2>Dashboard</h2>
         <ul>
-          <li onClick={navigateDashboard}>Dashboard</li>
-          <li onClick={navigateCourses}>Courses</li>
-          <li onClick={navigateHome}>Logout</li>
+          <li onClick={UserDashboard}>Dashboard</li>
+          <li onClick={() => navigate("/user-courses")}>Courses</li>
+          <li onClick={() => navigate("/")}>Logout</li>
         </ul>
       </div>
       <div className="contents">
@@ -65,8 +72,8 @@ function UserDashboard() {
                     <th>Email</th>
                     <th>DOB</th>
                     <th>Phone Number</th>
-                    <th>COURSE</th>
                     <th>YOGA CENTER</th>
+                    <th>COURSE</th>
                     <th>CITY</th>
                     <th>STATE</th>
                     <th>COUNTRY</th>

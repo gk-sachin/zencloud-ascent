@@ -13,17 +13,16 @@ import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems } from "../../Components/AdminDash/ListItems";
+import { mainListItems } from "../../Components/UserDash//ListItems";
+import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import Rating from "@mui/material/Rating";
 import axios from "axios";
 import { UserContext } from "../../Components/Context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -74,33 +73,27 @@ const Drawer = styled(MuiDrawer, {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function UsersAdmin() {
-  const [rows, setRows] = React.useState([]);
+export default function Academy() {
+  const [academies, setAcademies] = React.useState([]);
   const { user } = React.useContext(UserContext);
+  const navigate = useNavigate();
   React.useEffect(() => {
     async function fetch() {
-      const res = await axios.get("http://localhost:8080/api/users/", {
+      const res = await axios.get("http://localhost:8080/api/academies/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       });
-      const users = await res.data;
-      const rows =
-        users &&
-        users.map((user) =>
-          createData(user.name, user.email, user.phone, user.password)
-        );
-      setRows(rows);
+      console.log(res.data);
+      await setAcademies(res.data);
     }
     fetch();
-  });
+  }, []);
+
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  function createData(name, email, phone, pass) {
-    return { name, email, phone, pass };
-  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -109,7 +102,7 @@ export default function UsersAdmin() {
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
-              pr: "24px", // keep right padding when drawer closed
+              pr: "24px", // keep right padding when drawer clos`ed
             }}
           >
             <IconButton
@@ -131,7 +124,7 @@ export default function UsersAdmin() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Admin Dashboard
+              User Dashboard
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -175,40 +168,81 @@ export default function UsersAdmin() {
           <br />
           <br />
           <br />
-          <h1 style={{ padding: "0 20px" }}>Users</h1>
-
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <div>
-              <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Name</TableCell>
-                      <TableCell align="right">Email</TableCell>
-                      <TableCell align="right">Mobile Number</TableCell>
-                      
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((row) => (
-                      <TableRow
-                        key={row.name}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell component="th" scope="row">
-                          {row.name}
-                        </TableCell>
-                        <TableCell align="right">{row.email}</TableCell>
-                        <TableCell align="right">{row.phone}</TableCell>
-                        
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </div>
+          <h1 style={{ padding: "0 20px" }}>Academies</h1>
+          <Container
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            maxWidth="lg"
+            sx={{ mt: 4, mb: 4 }}
+          >
+            {academies &&
+              academies.map((academy) => (
+                <Card style={{ width: 300, margin: 10 }} key={academy.id}>
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    image={academy.imgURL}
+                    alt={academy.name}
+                  />
+                  <CardContent>
+                    <Typography variant="h6" component="div" gutterBottom>
+                      {academy.name}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" paragraph>
+                      {academy.description}
+                    </Typography>
+                    <Typography
+                      variant="subtitle2"
+                      color="textSecondary"
+                      paragraph
+                    >
+                      {academy.city}
+                    </Typography>
+                    <Typography
+                      variant="subtitle2"
+                      color="textSecondary"
+                      paragraph
+                    >
+                      {academy.state}
+                    </Typography>
+                    <Typography
+                      variant="subtitle2"
+                      color="textSecondary"
+                      paragraph
+                    >
+                      {academy.country}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      paragraph
+                    ></Typography>
+                    <Rating name="read-only" value={academy.ratings} readOnly />
+                    <br />
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="small"
+                      style={{ marginTop: 10 }}
+                      onClick={() => {
+                        navigate("/dashboard/user/academy/courses", {
+                          state: {
+                            id: academy.id,
+                            name: academy.name,
+                          },
+                        });
+                      }}
+                    >
+                      View Courses
+                    </Button>
+                    <br />
+                  </CardContent>
+                </Card>
+              ))}
           </Container>
         </Box>
       </Box>

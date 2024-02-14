@@ -1,5 +1,8 @@
 package com.example.zencloud.Service;
 
+import java.util.HashMap;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +34,7 @@ public class AuthenticationService {
                                 .password(passwordEncoder.encode(request.getPassword()))
                                 .phone(request.getPhone())
                                 .role(Role.USER)
+                                
                                 .build();
                 userRepository.save(user);
                 var jwtToken = jwtService.generateToken(user);
@@ -39,14 +43,15 @@ public class AuthenticationService {
                                 .build();
         }
 
-        public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        public ResponseEntity<HashMap<String, Object>> authenticate(AuthenticationRequest request) {
                 authenticationManager.authenticate(
                                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
                 var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
                 var jwtToken = jwtService.generateToken(user);
-                return AuthenticationResponse.builder()
-                                .token(jwtToken)
-                                .build();
-        }
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("token", jwtToken);
+                map.put("id", user.getId());
+                return ResponseEntity.ok(map);
+}
 
 }

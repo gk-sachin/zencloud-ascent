@@ -3,20 +3,29 @@
     max-width: 600px;
     margin: 0 auto;
     padding: 10px;
-    background-color: rgba(44, 62, 76, 0.95);
-    
+    background-color: rgba(38, 54, 67, 0.95);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+ 
   }
-  
+  .b
+  {
+    background-color: rgba(44, 62, 76, 0.95);
+  }
   .admission-container h2 {
     text-align: center;
     color: #3498db;
-    margin-top: 5px;
+    margin-top: 2px;
   }
   .he{
     font-size: 45px;
     padding: 20px;
+    margin-bottom: -12px;
+  }
+  .ree
+  {
+    margin: 7px;
+    margin-top: 5px;
   }
   
   .admission-container form {

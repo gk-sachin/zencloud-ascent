@@ -23,6 +23,10 @@ body {
   position: relative;
 }
 
+.h{
+  margin-right: -100px;
+}
+
 .logo {
   margin-left: 250px;
 }

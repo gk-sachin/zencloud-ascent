@@ -22,7 +22,7 @@ import CardContent from "@mui/material/CardContent";
 import Rating from "@mui/material/Rating";
 import { UserContext } from "../../Components/Context/UserContext";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -73,27 +73,30 @@ const Drawer = styled(MuiDrawer, {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Course() {
-  const navigate = useNavigate();
+export default function AcademyCourses() {
   const [open, setOpen] = React.useState(true);
+  const navigate = useNavigate();
   const toggleDrawer = () => {
     setOpen(!open);
   };
   const [courses, setCourses] = React.useState([]);
   const { user } = React.useContext(UserContext);
+  const location = useLocation();
   React.useEffect(() => {
     async function fetch() {
-      const res = await axios.get("http://localhost:8080/api/courses/", {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const res = await axios.get(
+        `http://localhost:8080/api/academies/courses/${location.state.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       console.log(res.data);
       await setCourses(res.data);
     }
     fetch();
   }, []);
-
   async function handleDelete(id) {
     await axios.delete(`http://localhost:8080/api/courses/${id}`, {
       headers: {
@@ -181,7 +184,9 @@ export default function Course() {
           <br />
           <br />
           <br />
-          <h1 style={{ padding: "0 20px" }}>Courses</h1>
+          <h1 style={{ padding: "0 20px" }}>
+            Courses in {location.state.name}
+          </h1>
           <Container
             style={{
               display: "flex",

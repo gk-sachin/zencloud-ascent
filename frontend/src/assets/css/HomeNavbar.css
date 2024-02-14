@@ -43,6 +43,10 @@
     
   }
   
+.lie{
+  margin-left: 52px;
+}
+
   .nav-elementss ul li:not(:last-child) {
     margin-right: 60px;
   }

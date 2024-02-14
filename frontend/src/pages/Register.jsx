@@ -44,11 +44,13 @@ function Register() {
 
     try {
      
-      const response = await axios.post("http://localhost:8081/register", {
+      const response = await axios.post("http://localhost:8080/api/v1/auth/register", {
         name: name,
+        email:email,
         password: password,
         confirmPassword: confirmPassword,
       });
+      window.alert("Registered Successfully!!")
 
       console.log(response.data);  
       navigate("/");
@@ -62,7 +64,7 @@ function Register() {
       <Navbar />
       <div className="lt dark-mode">
         <div className="round">
-          <form onSubmit={handleSignUp}>
+          <form className="round2" onSubmit={handleSignUp}>
           <h3>Sign Up</h3>
             <div className="mb-2">
               <label htmlFor="name">Name</label>
@@ -136,9 +138,7 @@ function Register() {
           </form>
         </div>
       </div>
-      <div className="foot">
-        <p className="copyrightt">&copy; Zencloud-Ascent 2024</p>
-      </div>
+      
     </>
   );
 }
