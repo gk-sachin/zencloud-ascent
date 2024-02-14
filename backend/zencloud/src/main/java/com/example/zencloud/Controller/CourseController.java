@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.CrossOrigin;
+=======
+>>>>>>> 6eb12e75592dd817f2eb19326a89ffa11a39822b
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +25,10 @@ import com.example.zencloud.Service.JwtService;
 import com.example.zencloud.Service.UserService;
 
 @RestController
+<<<<<<< HEAD
 @CrossOrigin(origins = "*")
+=======
+>>>>>>> 6eb12e75592dd817f2eb19326a89ffa11a39822b
 @RequestMapping("/api/courses")
 public class CourseController {
     @Autowired
@@ -91,10 +97,18 @@ public class CourseController {
         return courseService.registerCourse(user.getId(), id);
     }
 
+<<<<<<< HEAD
     @PostMapping("/withdraw/{id}")
     public ResponseEntity<String> withdrawCourse(@PathVariable Long id, @RequestBody User user) {
         return courseService.withdrawCourse(user.getId(),id);
 }
+=======
+    @DeleteMapping("/withdraw/{id}")
+    public ResponseEntity<String> withdrawCourse(@PathVariable Long id, @RequestBody User user) {
+        return courseService.withdrawCourse(user.getId(), id);
+    }
+
+>>>>>>> 6eb12e75592dd817f2eb19326a89ffa11a39822b
     @GetMapping("/users/{id}")
     public ResponseEntity<?> getUsers(@PathVariable Long id) {
         return courseService.getUsers(id);

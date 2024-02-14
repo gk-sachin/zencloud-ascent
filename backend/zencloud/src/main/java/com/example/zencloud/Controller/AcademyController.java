@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.CrossOrigin;
+=======
+>>>>>>> 6eb12e75592dd817f2eb19326a89ffa11a39822b
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.example.zencloud.Model.Academies;
@@ -23,7 +26,10 @@ import com.example.zencloud.Model.Role;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
+<<<<<<< HEAD
 @CrossOrigin(origins = "*")
+=======
+>>>>>>> 6eb12e75592dd817f2eb19326a89ffa11a39822b
 @RequestMapping("/api/academies")
 public class AcademyController {
     @Autowired

@@ -1,7 +1,10 @@
 package com.example.zencloud.Controller;
 
+<<<<<<< HEAD
 import java.util.HashMap;
 
+=======
+>>>>>>> 6eb12e75592dd817f2eb19326a89ffa11a39822b
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,8 +32,15 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
+<<<<<<< HEAD
    @PostMapping("/authenticate")
     public ResponseEntity<HashMap<String, Object>> authenticate(@RequestBody AuthenticationRequest request) {
         return (authenticationService.authenticate(request));
 }
+=======
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
+        return ResponseEntity.ok(authenticationService.authenticate(request));
+    }
+>>>>>>> 6eb12e75592dd817f2eb19326a89ffa11a39822b
 }
